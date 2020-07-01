@@ -120,6 +120,31 @@ namespace XLL_NAMESPACE
 		}
 		return S_OK;
 	}
+	
+	
+	HRESULT CreateValue(LPXLOPER12 dest, const std::vector<double>& from) {
+		assert(dest != nullptr);
+		size_t count = from.size();
+				
+		LPXLOPER12 p = (LPXLOPER12)malloc(sizeof(XLOPER12) * count);
+		if (p == nullptr)
+			return E_OUTOFMEMORY;
+
+		for (auto i = 0U; i < count; i++) {
+			HRESULT hr = CreateValue(&p[i], from[i]);
+			if (FAILED(hr)) {
+				free(p);
+				return hr;
+			}
+		}
+		dest->xltype = xltypeMulti | xlbitDLLFree;
+		dest->val.array.rows = count;
+		dest->val.array.columns = 1;  // swap for an horizontal result
+		dest->val.array.lparray = p;
+
+		return S_OK;
+	}
+	
 
 	HRESULT CreateValue(LPXLOPER12 dest, double value)
 	{
