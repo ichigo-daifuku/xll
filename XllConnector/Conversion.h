@@ -51,7 +51,7 @@ namespace XLL_NAMESPACE
 			"Don't know how to convert the given type to XLOPER12. "
 			"Overload CreateValue(LPXLOPER12, T) to implement it.");
 	}
-	HRESULT CreateValue(LPXLOPER12, std::vector<double>&);
+	HRESULT CreateValue(LPXLOPER12, const std::vector<double>&);
 	HRESULT CreateValue(LPXLOPER12, const XLOPER12 &);
 	HRESULT CreateValue(LPXLOPER12, double);
 	HRESULT CreateValue(LPXLOPER12, int);
